@@ -1,0 +1,81 @@
+{% extends "::base1.html.twig" %}
+
+
+    {% block body %}
+  	<style type="text/css">
+  		body{
+  			font-family: Times New Roman;
+  		}
+  		.panel-heading{
+text-align: center;  		}.panel{height: 300px;
+  		}
+  		.panel3{height: 400px;
+  		}
+  		
+{% for proposition in propositions %}
+  	</style>
+  	<div class="container">
+  		<header class="row"></header>
+  		<section class="row">
+  			<div class="col-sm-6">
+  			 <div class="panel panel-primary">
+      <div class="panel-heading"><h2>Proprietaire</h2></div>
+      <div class="panel-body">
+      	<h4><b>Prenoms et nom:</b>{{proposition.proprietaire.nomComplet}}</h4>
+      	<h4><b>Numero CNI:</b>{{proposition.proprietaire.numPiece}}</h4>
+      	<h4><b>TEL:</b>{{proposition.proprietaire.tel}}</h4>
+      	<h4><b>Email:</b>{{proposition.proprietaire.email}}</h4>
+      	<h4><b>Adresse:</b>{{proposition.proprietaire.adresse}}</h4>
+      	<h4><b>Code Banque:</b>{{proposition.proprietaire.codeBanque}}</h4>
+      </div>
+    </div>
+  			</div>  		
+  			<div class="col-sm-6">
+  			 <div class="panel panel-primary">
+      <div class="panel-heading"><h2>Bien</h2></div>
+      <div class="panel-body">
+      	<h4><b>Typebien:</b>{{proposition.bien.typebien}}</h4>
+      	<h4><b>Localite:{{proposition.bien.libellelocalite}}</b></h4>
+      	<h4><b>Prix:</b>{{proposition.bien.prixlocation}}</h4>
+      	<h4><b>Etat:</b>{{proposition.bien.etat}}</h4>
+      	<h4><b>Description:</b>{{proposition.bien.description}}</h4>
+      </div>
+    </div>
+  			</div>
+  <div class="col-sm-6">
+      <div class="panel panel3 panel-primary">
+        <div class="panel-heading"><h2>Contrat</h2></div>
+        <div class="panel-body">
+        	 <div class="form-group">
+  <label for="comment">Terme du contrat:</label>
+  {% for contrat in terme %}
+
+  <textarea class="form-control" rows="5" id="comment" value="">{{contrat.termecontrat}}</textarea>
+</div> <div class="radio">
+  <label><input type="radio" name="optradio" id="optradio">Accepter</label>
+</div>
+<div class="radio">
+  <label><input type="radio" name="optradio">Refuser</label>
+  <form method="post">
+    <input type="hidden" name="idpro" value="{{proposition.proprietaire.id}}">
+    <input type="hidden" name="idbien" value="{{proposition.bien.id}}">
+
+</div></div><button type="submit" class="btn btn-primary" disabled="" id="save" name="save">Valider</button>
+      </div></div>  </form>
+  </section>
+  		<footer class="row"></footer>
+  	</div>
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+      $('input[name=optradio]').on("change",function(){
+   if($(" #optradio").is(':checked') ){
+    $("#save").removeAttr("disabled");
+} 
+});});
+    </script>
+{% else %}
+{% endfor %}{% else %}
+{% endfor %}
+{% endblock %}
+	
